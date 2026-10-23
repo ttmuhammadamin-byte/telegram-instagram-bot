@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>OPEN Mini App</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #262626;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      min-height: 100vh;
+      margin: auto;
+      padding: 60px 25px 30px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 25px;
+      border-radius: 25px;
+      background: linear-gradient(
+        135deg,
+        #6535ed,
+        #d62976,
+        #ff9a32
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 45px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      color: #777;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 17px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fafafa;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #a855f7;
+    }
+
+    button,
+    .open-link {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(
+        100deg,
+        #6535ed,
+        #e53683,
+        #ff9436
+      );
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .error {
+      color: #e0245e;
+      margin-top: 18px;
+      min-height: 22px;
+    }
+
+    .success {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .success h2 {
+      color: #22a06b;
+    }
+
+    .footer {
+      margin-top: 80px;
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">O</div>
+
+    <h1>OPEN Mini App</h1>
+
+    <p class="subtitle">
+      Davom etish uchun Mini App
+      kirish kodini kiriting.
+    </p>
+
+    <div id="loginPanel">
+
+      <input
+        id="accessCode"
+        type="password"
+        placeholder="Kirish kodi"
+        autocomplete="off"
+      >
+
+      <button onclick="login()">
+        Kirish
+      </button>
+
+      <p id="error" class="error"></p>
+
+    </div>
+
+    <div id="successPanel" class="success">
+
+      <h2>✓ Kirish muvaffaqiyatli!</h2>
+
+      <p>
+        Instagram sahifasiga o'tish
+        uchun tugmani bosing.
+      </p>
+
+      <button onclick="openInstagram()">
+        OPEN OCHISH
+      </button>
+
+    </div>
+
+    <div class="footer">
+      Telegram Mini App
+    </div>
+
+  </div>
+
+  <script>
+    const tg = window.Telegram?.WebApp;
+
+    if (tg) {
+      tg.ready();
+      tg.expand();
+    }
+
+    function login() {
+      const code = document
+        .getElementById("accessCode")
+        .value.trim();
+
+      const error = document
+        .getElementById("error");
+
+      error.textContent = "";
+
+      // Bu faqat sinov kodi.
+      // Haqiqiy himoya uchun server kerak.
+      if (code === "1234") {
+        document.getElementById("loginPanel")
+          .style.display = "none";
+
+        document.getElementById("successPanel")
+          .style.display = "block";
+      } else {
+        error.textContent =
+          "Kirish kodi noto'g'ri!";
+      }
+    }
+
+    function openInstagram() {
+      const url =
+        "https://www.instagram.com/direct/inbox/";
+
+      if (tg) {
+        tg.openLink(url);
+      } else {
+        window.open(url, "_blank");
+      }
+    }
+  </script>
+
+</body>
+</html>
