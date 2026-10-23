@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+        content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+
   <title>OPEN Mini App</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -14,195 +16,353 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --purple: #6535ed;
+      --pink: #e53683;
+      --orange: #ff9436;
+      --text: #222222;
+      --muted: #7b8494;
+      --border: #e1e5ed;
+    }
+
     body {
       margin: 0;
+      min-height: 100vh;
       background: #ffffff;
-      color: #262626;
-      font-family: Arial, sans-serif;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     .container {
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       min-height: 100vh;
-      margin: auto;
-      padding: 60px 25px 30px;
+      margin: 0 auto;
+      padding: 48px 26px 30px;
       text-align: center;
     }
 
     .logo {
-      width: 85px;
-      height: 85px;
-      margin: 0 auto 25px;
-      border-radius: 25px;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 26px;
       background: linear-gradient(
         135deg,
-        #6535ed,
-        #d62976,
-        #ff9a32
+        var(--purple),
+        var(--pink),
+        var(--orange)
       );
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 45px;
+      color: #ffffff;
+      font-size: 46px;
       font-weight: bold;
+      box-shadow: 0 8px 24px rgba(229, 54, 131, 0.18);
     }
 
     h1 {
+      margin: 0;
       font-size: 32px;
-      margin-bottom: 15px;
+      letter-spacing: -1px;
     }
 
     .subtitle {
-      color: #777;
+      margin: 18px 0 38px;
+      color: var(--muted);
       font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 40px;
+      line-height: 1.7;
     }
 
-    input {
-      display: block;
-      width: 100%;
-      padding: 17px;
+    .field {
       margin-bottom: 15px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      background: #fafafa;
-      font-size: 16px;
-      outline: none;
+      text-align: left;
     }
 
-    input:focus {
-      border-color: #a855f7;
-    }
-
-    button,
-    .open-link {
+    .field label {
       display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #596273;
+    }
+
+    .field input {
       width: 100%;
       padding: 16px;
-      margin-top: 20px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #fafbfc;
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus {
+      border-color: var(--purple);
+      background: #ffffff;
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box input {
+      padding-right: 65px;
+    }
+
+    .show-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
       border: none;
-      border-radius: 12px;
+      background: transparent;
+      color: #697386;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .main-button {
+      display: block;
+      width: 100%;
+      margin-top: 24px;
+      padding: 17px;
+      border: none;
+      border-radius: 13px;
       background: linear-gradient(
         100deg,
-        #6535ed,
-        #e53683,
-        #ff9436
+        var(--purple),
+        var(--pink),
+        var(--orange)
       );
       color: white;
       font-size: 17px;
       font-weight: bold;
-      text-decoration: none;
       cursor: pointer;
+      box-shadow: 0 6px 18px rgba(229, 54, 131, 0.16);
+    }
+
+    .main-button:active {
+      transform: scale(0.99);
     }
 
     .error {
-      color: #e0245e;
-      margin-top: 18px;
       min-height: 22px;
+      margin-top: 18px;
+      color: #e0245e;
+      font-size: 14px;
     }
 
     .success {
       display: none;
-      margin-top: 40px;
+      padding-top: 24px;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e9f9f1;
+      color: #20a56d;
+      font-size: 43px;
     }
 
     .success h2 {
-      color: #22a06b;
+      color: #20976a;
+      font-size: 24px;
+    }
+
+    .success p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .logout-button {
+      margin-top: 20px;
+      border: none;
+      background: transparent;
+      color: #777;
+      font-size: 14px;
+      cursor: pointer;
     }
 
     .footer {
-      margin-top: 80px;
-      color: #999;
-      font-size: 13px;
+      margin-top: 65px;
+      color: #a1a7b2;
+      font-size: 12px;
     }
   </style>
 </head>
 
 <body>
-
-  <div class="container">
+  <main class="container">
 
     <div class="logo">O</div>
 
     <h1>OPEN Mini App</h1>
 
     <p class="subtitle">
-      Davom etish uchun Mini App
-      kirish kodini kiriting.
+      Xush kelibsiz! Davom etish uchun
+      Mini App login va kirish kodini kiriting.
     </p>
 
-    <div id="loginPanel">
+    <form id="loginPanel">
 
-      <input
-        id="accessCode"
-        type="password"
-        placeholder="Kirish kodi"
-        autocomplete="off"
-      >
+      <div class="field">
+        <label for="username">Login</label>
+        <input
+          id="username"
+          type="text"
+          placeholder="Login nomingiz"
+          autocomplete="off"
+          required
+        >
+      </div>
 
-      <button onclick="login()">
+      <div class="field">
+        <label for="accessCode">Kirish kodi</label>
+
+        <div class="password-box">
+          <input
+            id="accessCode"
+            type="password"
+            placeholder="Kirish kodini kiriting"
+            autocomplete="off"
+            required
+          >
+
+          <button
+            type="button"
+            class="show-password"
+            onclick="togglePassword()"
+          >
+            Ko‘rsat
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="main-button">
         Kirish
       </button>
 
-      <p id="error" class="error"></p>
+      <p id="error" class="error"
+         aria-live="polite"></p>
+    </form>
 
-    </div>
+    <section id="successPanel" class="success">
+      <div class="checkmark">✓</div>
 
-    <div id="successPanel" class="success">
-
-      <h2>✓ Kirish muvaffaqiyatli!</h2>
+      <h2>Kirish muvaffaqiyatli!</h2>
 
       <p>
-        Instagram sahifasiga o'tish
-        uchun tugmani bosing.
+        Davom etish uchun quyidagi
+        tugmani bosing.
       </p>
 
-      <button onclick="openInstagram()">
+      <button
+        type="button"
+        class="main-button"
+        onclick="openInstagram()"
+      >
         OPEN OCHISH
       </button>
 
-    </div>
+      <button
+        type="button"
+        class="logout-button"
+        onclick="resetLogin()"
+      >
+        Chiqish
+      </button>
+    </section>
 
     <div class="footer">
-      Telegram Mini App
+      OPEN Mini App • Telegram uchun
     </div>
 
-  </div>
+  </main>
 
   <script>
     const tg = window.Telegram?.WebApp;
+
+    // Faqat namoyish uchun kirish kodi.
+    // GitHub Pages'da bu kod maxfiy emas.
+    const DEMO_CODE = "1202.1905.0305";
 
     if (tg) {
       tg.ready();
       tg.expand();
     }
 
-    function login() {
-      const code = document
-        .getElementById("accessCode")
-        .value.trim();
+    const loginPanel =
+      document.getElementById("loginPanel");
 
-      const error = document
-        .getElementById("error");
+    const successPanel =
+      document.getElementById("successPanel");
 
-      error.textContent = "";
+    const usernameInput =
+      document.getElementById("username");
 
-      // Bu faqat sinov kodi.
-      // Haqiqiy himoya uchun server kerak.
-      if (code === "1234") {
-        document.getElementById("loginPanel")
-          .style.display = "none";
+    const codeInput =
+      document.getElementById("accessCode");
 
-        document.getElementById("successPanel")
-          .style.display = "block";
-      } else {
-        error.textContent =
-          "Kirish kodi noto'g'ri!";
-      }
+    const errorText =
+      document.getElementById("error");
+
+    function resetLogin() {
+      loginPanel.style.display = "block";
+      successPanel.style.display = "none";
+
+      usernameInput.value = "";
+      codeInput.value = "";
+      codeInput.type = "password";
+
+      errorText.textContent = "";
     }
+
+    function togglePassword() {
+      codeInput.type =
+        codeInput.type === "password"
+          ? "text"
+          : "password";
+    }
+
+    loginPanel.addEventListener(
+      "submit",
+      function(event) {
+        event.preventDefault();
+
+        const username =
+          usernameInput.value.trim();
+
+        const code =
+          codeInput.value.trim();
+
+        errorText.textContent = "";
+
+        if (!username || !code) {
+          errorText.textContent =
+            "Login va kirish kodini kiriting!";
+          return;
+        }
+
+        // Login maydoni bo'sh emasligi tekshiriladi.
+        // Haqiqiy login identifikatsiyasi emas.
+        if (code === DEMO_CODE) {
+          loginPanel.style.display = "none";
+          successPanel.style.display = "block";
+          codeInput.value = "";
+        } else {
+          errorText.textContent =
+            "Kirish kodi noto'g'ri!";
+        }
+      }
+    );
 
     function openInstagram() {
       const url =
@@ -211,10 +371,33 @@
       if (tg) {
         tg.openLink(url);
       } else {
-        window.open(url, "_blank");
+        window.open(
+          url,
+          "_blank",
+          "noopener,noreferrer"
+        );
       }
     }
-  </script>
 
+    // Sahifa yangilanganda yoki qayta ochilganda
+    // login oynasini ko'rsatish.
+    window.addEventListener(
+      "pageshow",
+      resetLogin
+    );
+
+    // Mini App oynasi qayta faollashganda
+    // loginni tiklash.
+    document.addEventListener(
+      "visibilitychange",
+      function() {
+        if (document.visibilityState === "visible") {
+          resetLogin();
+        }
+      }
+    );
+
+    resetLogin();
+  </script>
 </body>
 </html>
